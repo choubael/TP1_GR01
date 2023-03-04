@@ -7,6 +7,10 @@ class Neurone:
         self.w0=2
         self.w=[0,0,0,0]
         
+    def __init__(self,w0,w) -> None:
+        self.w0=w0
+        self.w=w
+        
     # la methode y
     def y(self,x):
         y=0.0
@@ -29,6 +33,7 @@ class Neurone:
             self.w[i]=self.w[i]+(d-z)*x[i]
         self.w0=self.w0-(d-z)
         print(x,'|',z,'|',d,'|',self.w,'|',self.w0,'\n')
+        print(success)
         return success 
  
 #un ptit main pour l'entrainement
