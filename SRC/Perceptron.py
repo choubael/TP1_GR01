@@ -32,8 +32,7 @@ class Neurone:
         for i in range(0,len(x)): 
             self.w[i]=self.w[i]+(d-z)*x[i]
         self.w0=self.w0-(d-z)
-        print(x,'|',z,'|',d,'|',self.w,'|',self.w0,'\n')
-        print(success)
+        print(x,'|',z,'|',d,'|',self.w,'|',self.w0,'\n') #juste pour visualiser les resultats en console
         return success 
  
 #un ptit main pour l'entrainement

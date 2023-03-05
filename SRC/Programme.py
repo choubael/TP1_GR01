@@ -1,6 +1,6 @@
 from pathlib import Path
-from tkinter import Label, Scrollbar, StringVar,Tk,Canvas,Text,Button,PhotoImage, Toplevel,ttk,messagebox,Listbox
-from tkinter.constants import BOTH, DISABLED,END,INSERT, LEFT,NORMAL, RIGHT,WORD
+from tkinter import Label, StringVar,Tk,Canvas,Text,Button,PhotoImage
+from tkinter.constants import END,WORD
 from Perceptron import Neurone
 
 #chemin d'accès aux assets
@@ -27,30 +27,31 @@ window.config(cursor="dot")
 result=StringVar()
 result.set("------")
 
-perceptron=Neurone(3,[1,-1,-1,2])
+perceptron=Neurone(3,[1,-1,-1,2])#notre perceptron
 
 
 def analyser():
+    ok=False
     motif=[]
     motif_str=(entry.get(0.0,END))
-    for i in range(0,4):
-        try:
+    try:
+        for i in range(0,4):
             motif.append(int(motif_str[i]))
-        except:
-            result.set('pour eviter le crash en cas de caractere')
-    d=0
-    if(motif==[1,0,0,1]):
-        d=1
-    print(d)
-    if(perceptron.apprendre(motif,d)):
-        result.set('J\'ai eu: '+str(d)+' et vous attendez: '+str(d)+'\n alors j\'ai eu juste' )
-    else:
-        result.set('je me suis trompé')
-        
-    
-
-
-
+        if(len(motif_str)>5):
+            raise BaseException
+        ok=True
+    except:
+        result.set('Entrer un bon motif')
+        ok=False
+    if ok:
+        d=0
+        if(motif==[1,0,0,1]):
+            d=1
+        if(perceptron.apprendre(motif,d)):
+            result.set('J\'ai eu: '+str(d)+' et vous attendez: '+str(d)+'\n alors j\'ai eu juste' )
+        else:
+            result.set('je me suis trompé')
+            
 #arrière plan
 canvas = Canvas(
     window,
@@ -71,17 +72,6 @@ bg = canvas.create_image(
     image=bg_image
     )
 
-label=Label(
-    canvas,
-    text="Entrez un motif (seuls les 04 premiers caracteres sont pris en compte)",
-    fg="white",
-    bg="#004c7f",
-    font=('sergio',13,'bold')
-)
-label.place(
-        x=20,
-        y=20
-)
 
 entry = Text(
     canvas,
@@ -94,8 +84,8 @@ entry = Text(
 
 )
 entry.place(
-    x=255,
-    y=53,
+    x=250,
+    y=90,
     width=90,
     height=20
 )
@@ -113,22 +103,10 @@ button_1 = Button(
     bg="#004C7F"
 )
 button_1.place(
-    x=266,
-    y=100,
+    x=260,
+    y=130,
     width=69,
     height=26
-)
-
-resultat_label=Label(
-    canvas,
-    text="Resultat",
-    fg="white",
-    bg="#004c7f",
-    font=('sergio',13,'bold')
-)
-resultat_label.place(
-        x=265,
-        y=165
 )
 
 resultat=Label(
@@ -140,7 +118,7 @@ resultat=Label(
 )
 resultat.place(
         x=150,
-        y=200,
+        y=220,
         width=300
 )
 
